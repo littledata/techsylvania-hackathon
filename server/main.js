@@ -18,15 +18,29 @@ Meteor.startup(() => {
 
 	eye.on('gazeUpdate', function (gazeObject) {
 	  // do cool stuff
+	  if (!blinked && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
+	  	blinked = 'both';
+	  }
 
+	  // console.log('Updated with average:',gazeObject.avg);
+	  // if (gazeObject.fix) console.log('Fixed');
+	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
+	  	blinked = 'both';
+	  } else if (blinked && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize == 0) {
+	  	blinked = 'right';
+	  } else if(blinked && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize > 0) {
+	  	blinked = 'left';
+	  }
+	  else {
+	  	blinked = false;
+	  }
 	  if(gazeObject.fix){
-	  	console.log('fix');
 	  	if (!fix) {
 	  		fix = true
 	  		timer = new Date()
 	  	}
 	  	else {
-	  		if (moment(timer).subtract(150,'miliseconds') < moment()) {
+	  		if (moment(timer).subtract(150,'miliseconds') < moment() && blinked) {
 	  		  Fiber(function(){
 	  				Pings.insert({
 		          	'x': gazeObject.avg.x,
@@ -35,7 +49,6 @@ Meteor.startup(() => {
 		            'creationDate' : new Date()
 	          		});
 	  			}).run();
-	  			// fiber.run();
 	          	fix = false;
 	  		}
 	  	}
