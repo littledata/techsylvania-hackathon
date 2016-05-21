@@ -1,44 +1,60 @@
 import { Meteor } from 'meteor/meteor';
+var Fiber  = Npm.require('fibers');
+// import { moment } from 'meteor/moment';
 // import Pings from '../imports/Api/Pings.js'
-var blink = false;
-var fix = false;
+var blinked = false;
+var fix = false, timer;
 
 Meteor.startup(() => {
 	// code to run on server at startup
 	let EyeTribeClient = require('../imports/tet-node-client');
 	let eye = new EyeTribeClient();
-	eye.activate({
-	host: 'localhost',
-	port: 6555,
-	mode: 'push',
-	version: 1
-});
+		eye.activate({
+		host: 'localhost',
+		port: 6555,
+		mode: 'push',
+		version: 1
+	});
 
 	eye.on('gazeUpdate', function (gazeObject) {
 	  // do cool stuff
-	  if (gazeObject.fix){
-	  	Meteor.clearTimeout();
-	  	fix = true;
+	  if (!gazeObject.fix){
+	  	fix = false;
 	  } 
-	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
-	  	blink = 'both';
-	  	Pings.insert({
-        	'x':x,
-        	'y':y,
-            'blinked': blinked,
-            'creationDate' : new Date()
-        });
+	  if (!blinked && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
+	  	blinked = 'both';
 	  }
-	  else if (blink && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize == 0) {
-	  	blink = 'right'; //signal not to introduce in DB
+	  else if (blinked && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize == 0) {
+	  	blinked = 'right'; //signal not to introduce in DB
 	  }
-	  else if(blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize > 0) {
-	  	blink = 'left';
+	  else if(blinked && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize > 0) {
+	  	blinked = 'left';
 	  }
 	  else {
-	  	blink = false;
+	  	blinked = false;
 	  }
 
+	  if(gazeObject.fix){
+	  	console.log('fix');
+	  	if (!fix) {
+	  		fix = true
+	  		timer = new Date()
+	  	}
+	  	else {
+	  		if (moment(timer).subtract(150,'miliseconds') < moment()) {
+	  		  Fiber(function(){
+	  				Pings.insert({
+		          	'x': gazeObject.avg.x,
+		          	'y': gazeObject.avg.y,
+		            'blinked': blinked,
+		            'creationDate' : new Date()
+	          		});
+	  			}).run();
+	  			// fiber.run();
+	          	fix = false;
+	  		}
+	  	}
+	  }
 	});
 
 	eye.on('connected', function () {
