@@ -14,7 +14,7 @@ Meteor.startup(() => {
 	eye.on('gazeUpdate', function (gazeObject) {
 	  // do cool stuff
 	  // console.log('Updated with average:',gazeObject.avg);
-	  if (gazeObject.fixed) console.log('Fixed');
+	  if (gazeObject.fix) console.log('Fixed');
 	});
 
 	eye.on('connected', function () {
