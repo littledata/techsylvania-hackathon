@@ -19,7 +19,14 @@ Meteor.startup(() => {
 	  if (gazeObject.fix){
 	  	Meteor.clearTimeout();
 	  	fix = true;
+<<<<<<< Updated upstream
 	  } 
+=======
+	  }
+
+	  // console.log('Updated with average:',gazeObject.avg);
+	  // if (gazeObject.fix) console.log('Fixed');
+>>>>>>> Stashed changes
 	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
 	  	blink = 'both';
 	  	Pings.insert({
