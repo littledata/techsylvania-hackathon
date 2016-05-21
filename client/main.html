@@ -10,7 +10,7 @@
 </body>
 
 <template name="topHotZone">
-    top
+    <div class="top"></div>
 </template>
 
 <template name="reportsList">
@@ -20,7 +20,7 @@
 </template>
 
 <template name="bottomHotZone">
-    bottom
+    <div class="bottom"></div>
 </template>
 
 <template name="report">
@@ -28,13 +28,13 @@
         <span class="blinking" style="position: absolute;top: {{y}}px;left: {{x}}px;"></span>
     {{/with}}
     {{#with ping}}
-        <span>x: {{x}}, y: {{y}} - {{blinked}}</span>
+        <span style="text-align: center;">x: {{x}}, y: {{y}} - {{blinked}}</span>
     {{/with}}
     {{#each reports}}
         <div class="row report {{selected}}" data-id="{{_id}}">
 			<div class="report_header {{selected}}">
 				<div class="signal" title="{{sigWord}} significant ( we are {{chanceStatement}} confident)">
-					<!-- {{> _signalIndicatorSmileys}} -->
+					{{> _signalIndicatorSmileys}}
 				</div>
 				<div class="main-title {{hasRead}}" onclick="void(0)">
 						{{{statement}}} - {{subName}}
@@ -51,7 +51,7 @@
             {{#if selected}}
             	<div class="report-details-container">
 					<div class="report-features">
-                        <!-- test -->
+                        Report is opened.
                     </div>
 				</div>
 			{{/if}}

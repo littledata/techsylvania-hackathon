@@ -15,7 +15,7 @@ Template.report.helpers({
 	reports: function () {
 		var array = [];
 
-		var reports = Reports.find({});
+		var reports = Reports.find({}, {sort: {date: -1}});
 		var reportsList = reports.fetch();
 
 		// simulateFirstItemOpened(reportsList);
@@ -97,19 +97,17 @@ Template.report.helpers({
 
 Template.report.events({
     "click .report_header": function (e, template) {
-        var selected = '';
+		var reportID = this._id;
 
-        if (selected) {
-            var parent = $("div").find("[data-id='" + reportID + "']");
-            if (parent.hasClass('selected')) {
-                $(parent).removeClass('selected');
-                $(parent).children('.report-details-container').css('display', 'none');
-                $(parent).children('.report_header').removeClass('selected');
-            } else {
-                $(parent).addClass('selected');
-                $(parent).children('.report-details-container').css('display', 'block');
-                $(parent).children('.report_header').addClass('selected');
-            }
+		var parent = $("div").find("[data-id='" + reportID + "']");
+        if (parent.hasClass('selected')) {
+            $(parent).removeClass('selected');
+            $(parent).children('.report-details-container').css('display', 'none');
+            $(parent).children('.report_header').removeClass('selected');
+        } else {
+            $(parent).addClass('selected');
+            $(parent).children('.report-details-container').css('display', 'block');
+            $(parent).children('.report_header').addClass('selected');
         }
     }
 });
