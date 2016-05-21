@@ -11,9 +11,10 @@ Meteor.startup(() => {
 	version: 1
 	});
 
-	eye.on('gazeUpdate', function (x, y) {
+	eye.on('gazeUpdate', function (gazeObject) {
 	  // do cool stuff
-	  console.log('Updated with x:',x,', y:', y, 'coordinates.');
+	  // console.log('Updated with average:',gazeObject.avg);
+	  if (gazeObject.fixed) console.log('Fixed');
 	});
 
 	eye.on('connected', function () {
