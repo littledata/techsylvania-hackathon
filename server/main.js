@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
-
+import { Pings } from '../imports/Api/Pings.js'
 var blink = false;
+var fix = false;
 
 Meteor.startup(() => {
 	// code to run on server at startup
@@ -15,16 +16,34 @@ Meteor.startup(() => {
 
 	eye.on('gazeUpdate', function (gazeObject) {
 	  // do cool stuff
-	  // console.log('Updated with average:',gazeObject.avg);
-	  if (gazeObject.fix) console.log('Fixed');
+	  if (gazeObject.fix){
+	  	Meteor.clearTimeout();
+	  	fix = true;
+	  } 
+
 	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
-	  	blink = true;
+	  	blink = 'both';
 	  	console.log('Blinked');
 	  }
-	  else if (blink && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize > 0) {
-	  	blink = false
+	  else if (blink && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize == 0) {
+	  	blink = 'right'; //signal not to introduce in DB
 	  }
-	  	
+	  else if(blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize > 0) {
+	  	blink = 'left';
+	  }
+	  else {
+	  	blink = false;
+	  }
+
+	  if(!fix){
+	  	  Meteor.setTimeout(()=>{
+	  	  	Pings.insert({
+	  	  		'x' : gazeObject.avgX,
+	  	  		'y' : gazeObject.avgY,
+	  	  		'fixed': fixed
+	  	  	})
+	  	  },200)
+	  }
 	});
 
 	eye.on('connected', function () {
