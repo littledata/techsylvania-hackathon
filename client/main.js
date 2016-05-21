@@ -1,4 +1,4 @@
-import { Pings } from '../imports/Api/Pings.js'
+// import Pings from '../imports/Api/Pings.js'
 
 Template.report.onCreated(() => {
 	Meteor.subscribe('pings');

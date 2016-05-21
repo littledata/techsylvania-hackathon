@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import { Pings } from '../imports/Api/Pings.js'
+// import Pings from '../imports/Api/Pings.js'
 var blink = false;
 var fix = false;
 
@@ -40,16 +40,6 @@ Meteor.startup(() => {
 	  	blink = false;
 	  }
 
-	  if(!fix){
-	  	  Meteor.setTimeout(()=>{
-	  	  	Pings.insert({
-	  	  		'x' : gazeObject.avgX,
-	  	  		'y' : gazeObject.avgY,
-	  	  		'fixed': fixed
-	  	  	})
-	  	  	
-	  	  },200)
-	  }
 	});
 
 	eye.on('connected', function () {
@@ -63,4 +53,5 @@ Meteor.startup(() => {
 		console.log('Disconnected');
 
 	});
+
 });
