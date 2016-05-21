@@ -23,6 +23,9 @@
 <template name="report">
     <!-- {{#each reports}} -->
         <div class="row report {{selected}}" data-id="{{_id}}">
+        	{{#with ping}}
+        		<span class="date">x: {{x}} y:{{y}}</span>
+        	{{/with}}
 			<div class="report_header {{selected}}">
 				<div class="signal" title="{{sigWord}} significant ( we are {{chanceStatement}} confident)">
 					<!-- {{> _signalIndicatorSmileys}} -->

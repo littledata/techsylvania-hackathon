@@ -23,7 +23,12 @@ Meteor.startup(() => {
 
 	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
 	  	blink = 'both';
-	  	console.log('Blinked');
+	  	Pings.insert({
+        	'x':x,
+        	'y':y,
+            'blinked': blinked,
+            'creationDate' : new Date()
+        });
 	  }
 	  else if (blink && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize == 0) {
 	  	blink = 'right'; //signal not to introduce in DB
@@ -42,6 +47,7 @@ Meteor.startup(() => {
 	  	  		'y' : gazeObject.avgY,
 	  	  		'fixed': fixed
 	  	  	})
+	  	  	
 	  	  },200)
 	  }
 	});
