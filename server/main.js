@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
+var blink = false;
+
 Meteor.startup(() => {
 	// code to run on server at startup
 	let EyeTribeClient = require('../imports/tet-node-client');
@@ -15,6 +17,14 @@ Meteor.startup(() => {
 	  // do cool stuff
 	  // console.log('Updated with average:',gazeObject.avg);
 	  if (gazeObject.fix) console.log('Fixed');
+	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
+	  	blink = true;
+	  	console.log('Blinked');
+	  }
+	  else if (blink && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize > 0) {
+	  	blink = false
+	  }
+	  	
 	});
 
 	eye.on('connected', function () {
