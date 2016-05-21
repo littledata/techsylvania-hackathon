@@ -2,7 +2,6 @@ import { Meteor } from 'meteor/meteor';
 var Fiber  = Npm.require('fibers');
 // import { moment } from 'meteor/moment';
 // import Pings from '../imports/Api/Pings.js'
-var blinked = false;
 var fix = false, timer;
 
 Meteor.startup(() => {
@@ -17,18 +16,14 @@ Meteor.startup(() => {
 	});
 
 	eye.on('gazeUpdate', function (gazeObject) {
-	  // do cool stuff
-	  if (!blinked && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
-	  	blinked = 'both';
-	  }
-
 	  // console.log('Updated with average:',gazeObject.avg);
 	  // if (gazeObject.fix) console.log('Fixed');
-	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
+	  var blinked = false;
+	  if (gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
 	  	blinked = 'both';
-	  } else if (blinked && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize == 0) {
+	  } else if (gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize == 0) {
 	  	blinked = 'right';
-	  } else if(blinked && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize > 0) {
+	  } else if(gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize > 0) {
 	  	blinked = 'left';
 	  }
 	  else {
@@ -40,7 +35,7 @@ Meteor.startup(() => {
 	  		timer = new Date()
 	  	}
 	  	else {
-	  		if (moment(timer).subtract(150,'miliseconds') < moment() && blinked) {
+	  		if (moment(timer).subtract(150,'miliseconds') < moment()) {
 	  		  Fiber(function(){
 	  				Pings.insert({
 		          	'x': gazeObject.avg.x,

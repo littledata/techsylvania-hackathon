@@ -24,11 +24,14 @@
 </template>
 
 <template name="report">
+    {{#with ping}}
+        <span class="blinking" style="position: absolute;top: {{y}}px;left: {{x}}px;"></span>
+    {{/with}}
+    {{#with ping}}
+        <span>x: {{x}}, y: {{y}} - {{blinked}}</span>
+    {{/with}}
     {{#each reports}}
         <div class="row report {{selected}}" data-id="{{_id}}">
-        	{{#with ping}}
-        		<span class="date">x: {{x}} y:{{y}}</span>
-        	{{/with}}
 			<div class="report_header {{selected}}">
 				<div class="signal" title="{{sigWord}} significant ( we are {{chanceStatement}} confident)">
 					<!-- {{> _signalIndicatorSmileys}} -->

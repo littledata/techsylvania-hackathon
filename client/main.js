@@ -8,6 +8,8 @@ Template.report.onCreated(() => {
 
 Template.report.helpers({
 	ping() {
+		var ping = Pings.findOne();
+		console.log(ping.blinked);
 		return Pings.findOne()
 	},
 	reports: function () {
@@ -61,7 +63,7 @@ Template.report.helpers({
 		else return "Extremely";
 	},
 	chanceStatement: function () {
-		return generateOneInChance(this.pChange);
+		// return generateOneInChance(this.pChange);
 	},
 	long: function () {
 		return (this.statement.length > 94) ? 'long' : '';
