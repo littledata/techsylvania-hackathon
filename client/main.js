@@ -91,9 +91,6 @@ Template.report.helpers({
 	starSelected: function () {
 		return reportUpVoteFilter.get();
 	}
-<<<<<<< Updated upstream
-})
-=======
 });
 
 Template.report.events({
@@ -114,4 +111,3 @@ Template.report.events({
         }
     }
 });
->>>>>>> Stashed changes

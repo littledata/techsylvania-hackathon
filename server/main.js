@@ -19,34 +19,6 @@ Meteor.startup(() => {
 	eye.on('gazeUpdate', function (gazeObject) {
 	  // do cool stuff
 
-	  if (!gazeObject.fix){
-	  	fix = false;
-	  } 
-	  if (!blinked && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
-	  	blinked = 'both';
-	  }
-
-	  // console.log('Updated with average:',gazeObject.avg);
-	  // if (gazeObject.fix) console.log('Fixed');
-	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
-	  	blink = 'both';
-	  	Pings.insert({
-        	'x':x,
-        	'y':y,
-            'blinked': blinked,
-            'creationDate' : new Date()
-        });
-	  }
-	  else if (blinked && gazeObject.lefteye.psize > 0 && gazeObject.righteye.psize == 0) {
-	  	blinked = 'right'; //signal not to introduce in DB
-	  }
-	  else if(blinked && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize > 0) {
-	  	blinked = 'left';
-	  }
-	  else {
-	  	blinked = false;
-	  }
-
 	  if(gazeObject.fix){
 	  	console.log('fix');
 	  	if (!fix) {
