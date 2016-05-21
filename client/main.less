@@ -1,0 +1,248 @@
+@import "/client/css/colors.import.less";
+@import "/client/css/mixin.import.less";
+
+.reportsContainer {margin-top: 25px;}
+
+#rightContent {
+	margin: 0 0 40px 0px;
+	padding: 0;
+	border: 1px solid @grey-lightest;
+	overflow: hidden;
+	background-color: white;
+	.border-radius(4px);
+
+	h3.no_reports {
+		padding: 25px;
+		margin: 0;
+		line-height: 1.4em;
+
+		a {display: block;}
+	}
+
+	.row {margin-right: 0;}
+}
+
+.report {
+	border-bottom: 1px solid @grey-lightest;
+	float: left;
+	margin: 0;
+	width: 100%;
+	position: relative;
+
+	.report_header {
+		cursor: pointer;
+		padding: 15px;
+
+		&:hover {background-color: @white-lightest;}
+
+		&.selected:hover {background-color: transparent;}
+	}
+
+	.lightbulb {
+		padding: 8px 0 0;
+		width: 18px;
+		float: left;
+		margin-right: 15px;
+
+		svg#lightbulb {fill: @yellow;width: 18px;height: 18px;}
+	}
+}
+
+	.report .signal {
+		padding: 6px 0 0;
+		width: 18px;
+		float: left;
+		margin-right: 15px;
+	}
+		.report .signal {
+			width: 18px;
+
+			svg {
+				width: 18px;
+				height: 18px;
+			}
+
+			/* Other Bad (Red Smiley) */
+			svg.bad {fill: @red;
+				.others circle:nth-of-type(1) {fill: @red;}
+				.others path:nth-of-type(1) {display: none;}
+				.others path:nth-of-type(2) {fill: @red;}
+				.others path:nth-of-type(3) {fill: @red;}
+				.others .eyes {fill: @red;}
+				.others polygon {display: none;}
+			}
+			/* Other good (Green Smiley) */
+			svg.good {fill: @green;
+
+				.others circle:nth-of-type(1) {fill: @green;}
+				.others path:nth-of-type(1) {fill: @green;}
+				.others path:nth-of-type(2) {fill: @green;}
+				.others path:nth-of-type(3) {display: none;}
+				.others .eyes {fill: @green;}
+				.others polygon {display: none;}
+			}
+
+			/* Neutral (Yellow Smiley) */
+			.neutral circle:nth-of-type(1) {fill: @yellow;}
+			.neutral path:nth-of-type(1) {display: none;}
+			.neutral path:nth-of-type(2) {fill: @yellow;}
+			.neutral path:nth-of-type(3) {display: none;}
+			.neutral .eyes {fill: @yellow;}
+			.neutral polygon {fill: @yellow;}
+		}
+
+.report .main-title {
+	line-height: 1.714em;
+	margin-right: 0px;
+	word-break: break-word;
+	color: @grey-darkest;
+	margin-right: 0;
+	font-size: 1.286em;
+	letter-spacing: 0.04em;
+	font-weight: 500;
+
+	.report-badge {
+		padding: 2px 6px;
+		background-color: @grey-lightest;
+		font-size: 13px;
+		font-weight: 700;
+		color: @grey-light;
+		text-transform: uppercase;
+		.border-radius(4px);
+	}
+}
+.main-title span.tip-head {color: @yellow;}
+.report .main-title.read {color: @grey-dark; font-weight: 300;}
+		.main-title span {display: inline;}
+			.main-title span.bad {color: @red;}
+			.main-title span.good {color: @green;}
+
+.report .update {
+	font-weight: 300;
+	padding: 15px 0 0;
+
+	.btn-info {background-color: @purple;
+		border: none; cursor: default; margin-right: 5px; margin-top: -3px;
+	}
+	.date {
+		font-weight: 400; color: @grey-lighter;
+	}
+}
+
+.date-details {padding: 15px 0 0;float: none;position: relative;text-align: left;top: 0;right: 0;}
+	.starContainer {position: relative;width: 16px;height: 16px;float: left;cursor: pointer;}
+		.starContainer svg path:nth-of-type(2) {fill: @grey-lighter;}
+		.starContainer svg path:nth-of-type(1) {fill: transparent;}
+		.starContainer .star {width: 100%;height: 100%;position: absolute;top: 0;left: 0;z-index: 10;}
+			.star-up svg path:nth-of-type(1) {fill: @yellow;}
+			.star-up svg path:nth-of-type(2) {fill: @yellow;}
+			.starContainer .popover {width: 230px;padding: 10px;left: -20px !important; top: 22px !important;
+				.arrow {left: 12% !important;}
+			}
+
+	.date-details .line {border-right: 1px solid @grey-lightest;padding: 0 15px 0 0;margin: 0 15px 0 0;height: 16px;float: left;}
+	.date-details .date {font-size: 1em;line-height: 1.143em;font-weight: 400;color: @grey-lighter;}
+
+.report .report-features {
+	position: relative;
+	float: left;
+	padding: 0 15px 15px 15px;
+	width: 100%;
+
+	.report-detail {
+		float: left;
+		padding: 0;
+		width: 100%;
+		border: none;
+	}
+
+	.gaLink {
+		float: left;
+		margin: 0;
+		padding: 15px 0 0;
+		font-size: 0.9em;
+    	font-weight: 400;
+    	color: @grey;
+	}
+}
+
+.meaning,
+.investigate {
+	float: left;
+	margin-top: 30px;
+	width: 100%;
+
+	svg {
+		margin: 6px 10px 0 0;
+		float: left;
+	}
+
+	.title {
+		color: @grey-dark;
+		text-transform: uppercase;
+		font-weight: 600;
+		line-height: 1.2em;
+		letter-spacing: 0.04em;
+		padding-left: 25px;
+		background-position: 0 50%;
+		margin-bottom: 5px;
+	}
+
+	p {
+		display: inline-block;
+		font-size: 0.9em;
+		font-weight: 400;
+		line-height: 1.714em;
+		color: @grey;
+		margin: 0;
+	}
+}
+
+.meaning .title {background: url('/img/icons/questionMark.svg')no-repeat;}
+.investigate .title {background: url('/img/icons/explore.svg')no-repeat;}
+
+@media (min-width: 768px) {
+	.reportsContainer,
+	.settingsContainer {
+		padding: 0 0 0 250px;
+
+		.sidebar-filters {display: none;}
+		#leftSidebar {display: block;width: 250px;margin-left: -250px;float: left;position: fixed;}
+		.reports_algorithm {margin: 0 0 20px 45px;}
+	}
+
+	#rightContent {
+		margin: 0 0 40px 45px;
+
+		.report {
+			.report_header {
+				padding: 25px;
+
+				.signal {padding-top: 10px;}
+				.main-title {margin-left: 30px;line-height: 2.143em;}
+				.update {padding: 25px 0 0 30px;}
+			}
+
+			.report-features {
+				padding: 0 25px 25px 55px;
+			}
+		}
+	}
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+	.report_header .date-details {padding: 25px 0 0 30px;}
+}
+
+@media (min-width: 1025px) {
+	#rightContent {
+		.report {
+			.main-title {margin-right: 105px;}
+			.date-details {float: right;text-align: right;padding: 8px 0 0;position: absolute;top: 25px;right: 25px;}
+		}
+
+		.starContainer .popover {width: 230px;padding: 10px;left: -194px !important; top: 22px !important;
+			.arrow {left: 88% !important;}
+		}
+	}
+}

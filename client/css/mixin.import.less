@@ -1,0 +1,40 @@
+.opacity(@opacity) {
+	@ieOpacity: @opacity * 100;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{ieOpacity})";
+			filter: ~"alpha(opacity=@{ieOpacity})";
+		 opacity: @opacity;
+}
+
+.border-radius(@radius) {
+	-webkit-border-radius: @radius;
+	   -moz-border-radius: @radius;
+					border-radius: @radius;
+}
+
+.animation(@arguments){
+	-webkit-animation: @arguments;
+	   -moz-animation: @arguments;
+		 	 -o-animation: @arguments;
+					animation: @arguments;
+}
+
+.transition (@transition) {
+	-webkit-transition: @transition;
+		 -moz-transition: @transition;
+		  -ms-transition: @transition;
+	 		 -o-transition: @transition;
+}
+
+.transform(@string){
+	-webkit-transform: @string;
+		 -moz-transform: @string;
+		  -ms-transform: @string;
+			 -o-transform: @string;
+}
+
+.rotate (@deg) {
+	-webkit-transform: rotate(@deg);
+		 -moz-transform: rotate(@deg);
+	    -ms-transform: rotate(@deg);
+	     -o-transform: rotate(@deg);
+}
