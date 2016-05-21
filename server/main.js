@@ -12,15 +12,20 @@ Meteor.startup(() => {
 	port: 6555,
 	mode: 'push',
 	version: 1
-	});
+});
 
 	eye.on('gazeUpdate', function (gazeObject) {
 	  // do cool stuff
+<<<<<<< Updated upstream
 	  if (gazeObject.fix){
 	  	Meteor.clearTimeout();
 	  	fix = true;
 	  } 
 
+=======
+	  // console.log('Updated with average:',gazeObject.avg);
+	  // if (gazeObject.fix) console.log('Fixed');
+>>>>>>> Stashed changes
 	  if (!blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
 	  	blink = 'both';
 	  	Pings.insert({
@@ -36,9 +41,12 @@ Meteor.startup(() => {
 	  else if(blink && gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize > 0) {
 	  	blink = 'left';
 	  }
+<<<<<<< Updated upstream
 	  else {
 	  	blink = false;
 	  }
+=======
+>>>>>>> Stashed changes
 
 	});
 

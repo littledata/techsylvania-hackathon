@@ -1,5 +1,6 @@
 <head>
   <title>TechSylvania Hackathon</title>
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -13,7 +14,9 @@
 </template>
 
 <template name="reportsList">
-    {{> report}}
+    <div id="rightContent">
+        {{> report}}
+    </div>
 </template>
 
 <template name="bottomHotZone">
@@ -21,13 +24,18 @@
 </template>
 
 <template name="report">
-    <!-- {{#each reports}} -->
+    {{#each reports}}
         <div class="row report {{selected}}" data-id="{{_id}}">
+<<<<<<< Updated upstream
         	{{#with ping}}
         		<span class="date">x: {{x}} y:{{y}}</span>
         	{{/with}}
 			<div class="report_header {{selected}}">
 				<div class="signal" title="{{sigWord}} significant ( we are {{chanceStatement}} confident)">
+=======
+			<div class="report_header {{selected}}" data-id="{{_id}}">
+				<div class="signal">
+>>>>>>> Stashed changes
 					<!-- {{> _signalIndicatorSmileys}} -->
 				</div>
 				<div class="main-title {{hasRead}}" onclick="void(0)">
@@ -36,7 +44,7 @@
 				</div>
 				<div class="date-details">
 					<div class="starContainer {{upStar}}">
-						<!-- {{> _starVote}} -->
+						{{> _starVote}}
 					</div>
 					<span class="line"></span>
 					<span class="date">{{date}}</span>
@@ -45,10 +53,10 @@
             {{#if selected}}
             	<div class="report-details-container">
 					<div class="report-features">
-
+                        test
                     </div>
 				</div>
 			{{/if}}
         </div>
-    <!-- {{/each}} -->
+    {{/each}}
 </template>
