@@ -26,8 +26,7 @@ Tracker.autorun( () => {
 		$el = ($el.is('div.report.row')) ? $el : $el.parent('div.report.row');
 
 		if (ping.blinked == 'left') {
-			var $star = $el.find('.starContainer')
-			// console.log($star)
+			var $star = $el.find('.starContainer');
 			$star.toggleClass('star-up');
 		}
 		else if (ping.blinked == 'right') {
@@ -36,6 +35,7 @@ Tracker.autorun( () => {
 	            $el.children('.report-details-container').css('display', 'none');
 	            $el.children('.report_header').removeClass('selected');
 	        } else {
+				console.log('blinked here');
 	            $el.addClass('selected');
 	            $el.children('.report-details-container').css('display', 'block');
 	            $el.children('.report_header').addClass('selected');

@@ -1,4 +1,5 @@
-browserHeader = window.outerHeight - window.innerHeight;
+// browserHeader = window.outerHeight - window.innerHeight;
+browserHeader = 0;
 
 // import Pings from '../imports/Api/Pings.js'
 
@@ -25,7 +26,7 @@ Template.report.helpers({
 		var array = [];
 
 		return Reports.find({}, {sort: {date: -1}});
-		
+
 	},
 	statement: function () {
 		if (typeof this.statement == 'string') {
@@ -50,8 +51,10 @@ Template.report.helpers({
 		return periodType
 	},
 	selected: function () {
-		var current = this._id;
-		return (this._id === current ) ? 'selected' : false;
+		return false
+		// var current = this._id;
+		// var current = 'DNe2oPr6bA4321SXu';
+		// return (this._id === current ) ? 'selected' : false;
 	},
 	// hasRead: function () {
 		// var read = _.contains(this.read, Meteor.userId());
@@ -98,4 +101,3 @@ Template.report.helpers({
 		return (this.starred == true) ? 'star-up' : ''
 	}
 });
-

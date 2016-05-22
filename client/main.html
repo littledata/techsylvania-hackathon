@@ -25,7 +25,7 @@
 
 <template name="report">
     {{#with ping}}
-        <span class="blinking" style="position: absolute;top: {{y}}px;left: {{x}}px;"></span>
+        <span class="blinking" style="position: absolute;top: {{y}}px;left: {{x}}px;z-index: 9999999999999;"></span>
     {{/with}}
     {{#with ping}}
         <span style="text-align: center;">x: {{x}}, y: {{y}} - {{blinked}}</span>
