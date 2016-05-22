@@ -27,12 +27,12 @@ Meteor.startup(() => {
 	  		timer = new Date()
 	  	}
 	  	else {
-	  		if (moment(timer).subtract(200,'milliseconds') < moment()) {
+	  		if (moment(timer).add(200,'milliseconds') < moment()) {
 	  		  Fiber(function(){
 	  				Pings.insert({
 		          	'x': gazeObject.avg.x,
 		          	'y': gazeObject.avg.y,
-		            'blinked': blink,
+		            'blinked': false,
 		            'creationDate' : new Date()
 	          		});
 	  			}).run();
@@ -48,11 +48,12 @@ Meteor.startup(() => {
 	  	blink = (psizeL == 0) ? 'left' : 'right'
 	  	blinkTimer = new Date()
 	  }
-	  else if (psizeL > 0 && psizeR > 0) {
+	  else if (psizeL > 0.1 && psizeR > 0.1) {
 	  	blink = false
 	  }
 	  else {
-	  	if (moment(blinkTimer).subtract(200,'milliseconds') < moment()) {
+	  	if (moment(blinkTimer).add(400,'milliseconds') < moment()) {
+	  		console.log(blink)
 	  		  Fiber(function(){
 	  				Pings.insert({
 		          	'x': gazeObject.avg.x,
