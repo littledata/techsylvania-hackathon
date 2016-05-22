@@ -1,27 +1,21 @@
-var pause = false;
-
 Tracker.autorun( () => {
 	var ping = Pings.findOne();
 	if (!ping) return;
 
-	ping.y = ping.y - browserHeader;
+	ping.y = ping.y - browserHeader * 2;
 
 	var hotZoneTop = 200;
 
 	if (ping.y < hotZoneTop || ping.y > window.outerHeight - 100) {
 		var move = ( ping.y < hotZoneTop ) ? - 20 : 20;
 
-		// console.log('move',move)
+		console.log('move',move)
 		//scroll up or down
 		$('html, body').scrollTop(window.scrollY + move)
 		return;
 	}
-	console.log(pause)
-	if (ping.blinked != false && !pause) {
-		pause = true
-		Meteor.setTimeout(()=>{
-			pause = false
-		},500);
+
+	if (ping.blinked != false) {
 		var $el = $(document.elementFromPoint(ping.x,ping.y))
 		$el = ($el.is('div.report.row')) ? $el : $el.parent('div.report.row');
 
