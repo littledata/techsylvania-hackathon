@@ -47,12 +47,27 @@ body {
 	.row {margin-right: 0;}
 }
 
+.report-details-container {
+	display: none;
+}
+
 .report {
 	border-bottom: 1px solid @grey-lightest;
 	float: left;
 	margin: 0;
 	width: 100%;
 	position: relative;
+
+	&.selected {
+		background-color: @purple;
+		.report-details-container {
+			display: block;
+
+			.report-features {
+				// background-color: @purple;
+			}
+		}
+	}
 
 	.report_header {
 		cursor: pointer;
