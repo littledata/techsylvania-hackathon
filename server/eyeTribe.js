@@ -4,7 +4,7 @@ var Fiber  = Npm.require('fibers');
 // import Pings from '../imports/Api/Pings.js'
 var fix = false, timer, blinkTimer;
 var blink = false;
-const xFix = [], yFix = [];
+var xFix = [], yFix = [];
 
 Meteor.startup(() => {
 	// code to run on server at startup
@@ -37,6 +37,7 @@ Meteor.startup(() => {
 	          		});
 	  			}).run();
 	          	fix = false;
+	          	xFix = [], yfix= []
 	  		}
 	  		else {
 	  			xFix.push(gazeObject.avg.x)
