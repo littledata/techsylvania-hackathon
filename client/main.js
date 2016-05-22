@@ -1,3 +1,5 @@
+browserHeader = window.outerHeight - window.innerHeight;
+
 // import Pings from '../imports/Api/Pings.js'
 
 Template.report.onCreated(() => {
@@ -9,18 +11,21 @@ Template.report.onCreated(() => {
 Template.report.helpers({
 	ping() {
 		var ping = Pings.findOne();
-		console.log(ping.blinked);
 		return Pings.findOne()
+	},
+	x() {
+		return this.x + window.scrollX;
+	},
+	y() {
+		var adjusted = this.y - browserHeader;
+		adjusted = (adjusted < 0) ? 0 : adjusted;
+		return adjusted + window.scrollY
 	},
 	reports: function () {
 		var array = [];
 
-		var reports = Reports.find({}, {sort: {date: -1}});
-		var reportsList = reports.fetch();
-
-		// simulateFirstItemOpened(reportsList);
-
-		return reports.count() > 0 ? reportsList : false;
+		return Reports.find({}, {sort: {date: -1}});
+		
 	},
 	statement: function () {
 		if (typeof this.statement == 'string') {
@@ -76,7 +81,6 @@ Template.report.helpers({
 	},
 	subName: function () {
 		var sub = Subscribers.findOne({viewID: this.viewID});
-		console.log(sub && sub.name);
 		return sub && sub.name
 	},
 	reportTemplateName: function () {
@@ -90,24 +94,8 @@ Template.report.helpers({
 	metric: function () {
 		return (metric.slice(0, 4) == 'goal') ? 'goal conversions' : metric
 	},
-	starSelected: function () {
-		return reportUpVoteFilter.get();
+	upStar: function() {
+		return (this.starred == true) ? 'star-up' : ''
 	}
 });
 
-Template.report.events({
-    "click .report_header": function (e, template) {
-		var reportID = this._id;
-
-		var parent = $("div").find("[data-id='" + reportID + "']");
-        if (parent.hasClass('selected')) {
-            $(parent).removeClass('selected');
-            $(parent).children('.report-details-container').css('display', 'none');
-            $(parent).children('.report_header').removeClass('selected');
-        } else {
-            $(parent).addClass('selected');
-            $(parent).children('.report-details-container').css('display', 'block');
-            $(parent).children('.report_header').addClass('selected');
-        }
-    }
-});
