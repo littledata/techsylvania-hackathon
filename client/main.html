@@ -48,11 +48,13 @@
 					<span class="date">{{date}}</span>
 				</div>
 			</div>
-            <div class="report-details-container">
-				<div class="report-features">
-                    Report is opened.
-                </div>
-			</div>
+            {{#if selected}}
+            	<div class="report-details-container">
+					<div class="report-features">
+                        Report is opened.
+                    </div>
+				</div>
+			{{/if}}
         </div>
     {{/each}}
 </template>
