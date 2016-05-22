@@ -2,8 +2,8 @@ import { Meteor } from 'meteor/meteor';
 var Fiber  = Npm.require('fibers');
 // import { moment } from 'meteor/moment';
 // import Pings from '../imports/Api/Pings.js'
-var fix = false, timer;
-var blinked = false;
+var fix = false, timer, blinkTimer;
+var blink = false;
 const xFix = [], yFix = [];
 
 Meteor.startup(() => {
@@ -25,13 +25,6 @@ Meteor.startup(() => {
 	  	if (!fix) {
 	  		fix = true
 	  		timer = new Date()
-	  		if (gazeObject.lefteye.psize == 0 && gazeObject.righteye.psize == 0) {
-			  	blinked = 'both';
-			  } else if (gazeObject.righteye.psize == 0) {
-			  	blinked = 'right';
-			  } else if(gazeObject.lefteye.psize == 0) {
-			  	blinked = 'left';
-			  }
 	  	}
 	  	else {
 	  		if (moment(timer).subtract(200,'milliseconds') < moment()) {
@@ -46,6 +39,30 @@ Meteor.startup(() => {
 	          	fix = false, blinked = false;
 	  		}
 	  	}
+	  }
+	  var psizeL = gazeObject.lefteye.psize;
+	  var psizeR = gazeObject.righteye.psize;
+
+	  if (!blink && (psizeL == 0 || psizeR == 0)) {
+	  	if (psizeL + psizeR == 0) return; // not counting both eyes
+	  	blink = (psizeL == 0) ? 'left' : 'right'
+	  	blinkTimer = new Date()
+	  }
+	  else if (psizeL > 0 && psizeR > 0) {
+	  	blink = false
+	  }
+	  else {
+	  	if (moment(timer).subtract(200,'milliseconds') < moment()) {
+	  		  Fiber(function(){
+	  				Pings.insert({
+		          	'x': gazeObject.avg.x,
+		          	'y': gazeObject.avg.y,
+		            'blinked': blink,
+		            'creationDate' : new Date()
+	          		});
+	  			}).run();
+	          	fix = false, blinked = false;
+	  		}
 	  }
 	});
 
