@@ -50,12 +50,6 @@ Template.report.helpers({
 		}
 		return periodType
 	},
-	selected: function () {
-		return false
-		// var current = this._id;
-		// var current = 'DNe2oPr6bA4321SXu';
-		// return (this._id === current ) ? 'selected' : false;
-	},
 	// hasRead: function () {
 		// var read = _.contains(this.read, Meteor.userId());
 		// return (read ? 'read' : '');

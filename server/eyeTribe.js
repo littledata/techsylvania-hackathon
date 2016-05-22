@@ -32,7 +32,7 @@ Meteor.startup(() => {
 	  				Pings.insert({
 		          	'x': xFix.sum() / xFix.count(),
 		          	'y': yFix.sum() / yFix.count(),
-		            'blinked': false,
+		            'blinked': blink,
 		            'creationDate' : new Date()
 	          		});
 	  			}).run();
