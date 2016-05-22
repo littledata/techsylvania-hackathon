@@ -32,11 +32,11 @@ Meteor.startup(() => {
 	  				Pings.insert({
 		          	'x': gazeObject.avg.x,
 		          	'y': gazeObject.avg.y,
-		            'blinked': blinked,
+		            'blinked': blink,
 		            'creationDate' : new Date()
 	          		});
 	  			}).run();
-	          	fix = false, blinked = false;
+	          	fix = false;
 	  		}
 	  	}
 	  }
@@ -52,7 +52,7 @@ Meteor.startup(() => {
 	  	blink = false
 	  }
 	  else {
-	  	if (moment(timer).subtract(200,'milliseconds') < moment()) {
+	  	if (moment(blinkTimer).subtract(200,'milliseconds') < moment()) {
 	  		  Fiber(function(){
 	  				Pings.insert({
 		          	'x': gazeObject.avg.x,
@@ -61,7 +61,7 @@ Meteor.startup(() => {
 		            'creationDate' : new Date()
 	          		});
 	  			}).run();
-	          	fix = false, blinked = false;
+	          	fix = false, blink = false;
 	  		}
 	  }
 	});
