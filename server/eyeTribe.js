@@ -30,18 +30,13 @@ Meteor.startup(() => {
 	  		if (moment(timer).add(200,'milliseconds') < moment()) {
 	  		  Fiber(function(){
 	  				Pings.insert({
-		          	'x': xFix.sum() / xFix.count(),
-		          	'y': yFix.sum() / yFix.count(),
+		          	'x': gazeObject.avg.x,
+		          	'y': gazeObject.avg.y,
 		            'blinked': blink,
 		            'creationDate' : new Date()
 	          		});
 	  			}).run();
 	          	fix = false;
-	          	xFix = [], yfix= []
-	  		}
-	  		else {
-	  			xFix.push(gazeObject.avg.x)
-	  			yFix.push(gazeObject.avg.y)
 	  		}
 	  	}
 	  }
